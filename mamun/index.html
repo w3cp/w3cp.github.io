@@ -1,0 +1,115 @@
+<!--
+Anwar Hossain
+github.com/w3cp/
+tested on google chrome
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title> BD Time by JavaScript </title>
+    <style>
+        body {
+            background: #0074D9;
+            margin: 0px auto;
+            font-family: "Times New Roman", Times, Serif;
+            font-style : italic;
+            text-align:center;
+        }
+        
+        /*style timeBg - minimize and maximize radius, change color etc*/
+        @-webkit-keyframes radius {
+            10% {background: -webkit-linear-gradient(right bottom, #B10DC9, #85144B, #FF851B);}
+            25% {border-radius: 5px 220px 10px 10px;color: #001F3F;}
+            50% {color: #FF4136;}
+            75% {background: -webkit-linear-gradient(right bottom, #FF851B, #85144B, #B10DC9);color: #F012BE;}
+            100% {border-radius: 220px 5px 10px 10px;color: #FFDC00;}
+        }
+        
+        .timeBg {
+            font-size: 250%;
+            margin: 0 auto;
+            /*background-color: #FF851B;
+            background-color: #85144B;*/
+            background: -webkit-radial-gradient(circle, #85144B, #B10DC9, #FF851B);
+            border: 0px;
+            /*border-radius: 5px 220px 10px 10px;*/
+            color:#7FDBFF;
+            text-align:center;
+            text-shadow: 1px 1px 3px #fff;
+            padding: 4px;
+		        width: 75%;
+		        height: 220px;
+		        -webkit-animation: radius 5s linear 10s infinite alternate;
+        }
+        /* blink the time */
+        @-webkit-keyframes timeBlink {
+            0%   {color:#FFFFFF;}
+            30%  {color:#111111;}
+            66% {color:#ffffff;}
+            100% {color: #000000;font-weight: bolder;}
+        }
+        span.timeBlink {
+            -webkit-animation: timeBlink 1s linear 0s infinite alternate;
+        }
+    </style>
+</head>
+
+<body onload = "startTimeAndDate()">
+    <h1 style = "color: #F012BE">ANWARASHARUPAHIMUANU</h1>
+    <h2><a href = "https://github.com/w3cp/" style = "text-decoration: none;">https://github.com/w3cp/</a></h2>
+    <div id = "mamun" class = "timeBg"> </div>
+    <h2>[Use Google Chrome for better performance]</h2>
+
+    <!--javascript is the default script for html doc; no need to type 'type' 
+    ; if you do (type 'type') nothing wrong with you - :D -->
+    <script>
+        function startTimeAndDate() {
+            var currentTime = new Date(); // create a Date object
+            
+            // time
+            var hours = currentTime.getHours(); // need a semicolon to terminate a statement
+            var minutes = currentTime.getMinutes();
+            var seconds = currentTime.getSeconds();
+            
+            var amOrPm = "AM"; // assume now is am. if pm, then change it
+            if (hours > 12) {
+                hours = hours - 12;
+                amOrPm = "PM";
+            }
+            
+            // date
+            var month = currentTime.getMonth();
+            var day = currentTime.getDate();
+            var year = currentTime.getFullYear();
+            
+            // add a leading zero if number is < 10
+            seconds = checkTimeAndDate(seconds);
+            minutes = checkTimeAndDate(minutes);
+            hours = checkTimeAndDate(hours);
+            day = checkTimeAndDate(day);
+            month = checkTimeAndDate(month);
+            
+            // store month and day name 
+            var months = ["Jan" , "Feb", "March", "April", "May", "June", "July" , "Aug", "Sep", "Oct", "Nov", "Dec"];
+            var days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
+            
+            // create result
+            var myTime = hours + "<span class = 'timeBlink'>:</span>" + minutes + "<span class = 'timeBlink'>:</span>" + seconds + " " + amOrPm;
+            var myDate = days[currentTime.getDay()] + " Day , " + months[currentTime.getMonth()] + " " + day + " , " + year;
+            var myDate2 = day + "/" + month + "/" + year;
+            
+            // display result
+            document.getElementById('mamun').innerHTML = "<br>" + myTime + "<br>" + myDate2 + "<br>" + myDate + "<br>___________";
+            
+            // refresh the result at every 500 miliseconds by calling the startTimeAndDate function again
+            var timeout = setTimeout(function() {startTimeAndDate()}, 500);
+        } // end function startTimeAndDate
+        
+        // add 0 before the num if num < 10
+        function checkTimeAndDate(i) {
+            if (i < 10) i = "0" + i; // add a leading zero if number is < 10
+            return i;
+        } // end function checkTimeAndDate
+    </script>
+</body>
+</html>
